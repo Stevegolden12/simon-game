@@ -26,51 +26,68 @@ h1 {
 .pad.red {
   left: 15px;
   top: 15px;
-  background: rgb(255,0,0);
-  -webkit-border-radius: 320px 20px 20px;
-  -moz-border-radius: 320px 20px 20px;
-  -o-border-radius: 320px 20px 20px;
-  border-radius: 320px 20px 20px;
+  background: hsl(0,100%,35%);
+  -webkit-border-top-left-radius: 400px;
+  -moz-border-top-left-radius: 400px;
+  -o-border-top-left-radius: 400px;
+  border-top-left-radius: 400px;
 }
+
+  .pad.red:active {
+    background: hsl(0,100%,65%);
+  }
 
 .pad.green {
   right: 15px;
   top: 15px;
-  background: rgb(0,255,0);
-  -webkit-border-radius: 20px 320px 20px 20px;
-  -moz-border-radius: 20px 320px 20px 20px;
-  -o-border-radius: 20px 320px 20px 20px;
-  border-radius: 20px 320px 20px 20px;
+  background: hsl(120,100%, 25%);
+  -webkit-border-top-right-radius: 500px;
+  -moz-border-top-right-radius: 500px;
+  -o-border-top-right-radius: 500px;
+  border-top-right-radius: 500px;
 }
+
+  .pad.green:active {
+    background: hsl(120,100%,50%);
+  }
 
 .pad.yellow {
   bottom: 15px;
   right: 15px;
-  background: rgb(255,255,0);
-  -webkit-border-radius: 20px 20px 320px 20px;
-  -moz-border-radius: 20px 20px 320px 20px;
-  -o-border-radius: 20px 20px 320px 20px;
-  border-radius: 20px 20px 320px 20px;
+  background: hsl(60,100%,35%);
+  -webkit-border-bottom-right-radius: 400px;
+  -moz-border-bottom-right-radius: 400px;
+  -o-border-bottom-right-radius: 400px;
+  border-bottom-right-radius: 400px;
 }
+
+  .pad.yellow:active {
+    background: hsl(60,100%,65%);
+  }
 
 .pad.blue {
   bottom: 15px;
   left: 15px;
-  background: rgb(0,0,255);
-  -webkit-border-radius: 20px 20px 20px 320px;
-  -moz-border-radius: 20px 20px 20px 320px;
-  -o-border-radius: 20px 20px 20px 320px;
-  border-radius: 20px 20px 20px 320px;
+  background: hsl(240,100%,40%);
+  -webkit-border-bottom-left-radius: 400px;
+  -moz-border-bottom-left-radius: 400px;
+  -o-border-bottom-left-radius: 400px;
+  border-bottom-left-radius: 400px;
 }
 
+  .pad.blue:active {
+    background: hsl(240,100%,65%);
+  }
+
 .simon {
+  margin: 0 auto;
   position: relative;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -o-border-radius: 50%;
   border-radius: 50%;
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
   background: #000;
   margin: 20px;
   background: rgb(0,0,0);
@@ -108,12 +125,12 @@ h1 {
     cursor: pointer;
     display: block;
     background: rgb(255,255,255);
-    background: -moz-radial-gradient(center,ellipse cover,rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
+    background: -moz-radial-gradient(center,ellipse farthest-corner,rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
     background: -webkit-gradient(radial,center center,0px,center center,100%,color-stop(0%,rgba(255,255,255,1)),color-stop(47%,rgba(246,246,246,1)),color-stop(100%,rgba(237,237,237,1)));
-    background: -webkit-radial-gradient(center,ellipse cover,rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
-    background: -o-radial-gradient(center,ellipse cover,rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
-    background: -ms-radial-gradient(center,ellipse cover,rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
-    background: radial-gradient(center,ellipse cover,rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
+    background: -webkit-radial-gradient(center,ellipse farthest-corner,rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
+    background: -o-radial-gradient(center,ellipse farthest-corner,rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
+    background: -ms-radial-gradient(center,ellipse farthest-corner,rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
+    background: radial-gradient(center,ellipse farthest-corner,rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff',endColorstr='#ededed',GradientType=1 );
     width: 120px;
     padding-top: 40px; /* dont remove */
@@ -131,8 +148,8 @@ h1 {
 
 .pad {
   position: absolute; /* why ? */
-  width: 180px;
-  height: 180px;
+  width: 150px;
+  height: 150px;
   background: rgba(20,20,20,1);
   opacity: 0.5;
   -webkit-transition: all 300ms ease;
@@ -148,3 +165,50 @@ h1 {
   .pad.active {
     opacity: 1;
   }
+
+#simonName {
+  position: relative;
+  bottom: 20px;
+}
+
+#simonLevel {
+  position: relative;
+  bottom: 15px;
+}
+
+#startButton {
+  position: relative;
+  bottom: 12px;
+}
+
+@media screen and (min-width: 768px) {
+  .simon{
+    width: 500px;
+    height: 500px;
+  }
+
+  .pad {
+    width: 220px;
+    height: 220px;
+  }
+
+  .pad.green {
+    right: 20px;
+    top: 20px;
+  }
+
+  .pad.red {
+    left: 20px;
+    top: 20px;
+  }
+
+  .pad.yellow {
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .pad.blue {
+    left: 20px;
+    bottom: 20px;
+  }
+}
