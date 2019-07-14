@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import ReactHowler from 'react-howler'
+import blueButton from './sounds/blue_button.wav'
 import './App.css'
 
 class App extends React.Component {
@@ -11,6 +12,7 @@ class App extends React.Component {
       levelNum: 1,
     }
     this.setLevel = this.setLevel.bind(this);
+    this.playSound = this.playSound.bind(this);
   }
 
 
@@ -27,14 +29,22 @@ class App extends React.Component {
     }
   }
 
+  playSound() {
+    console.log("RED BUTTON")
+
+  }
+
   render() {
     const centerStyle = { margin: 'auto' };
+
+
     return (
-      <div className="App">
+      <div className="App">    
+        <ReactHowler src="./sounds/blue_button.wav" playing={true} />
         <h1>Simon Game</h1>
         <div id="simonWrapper">
           <section className="simon" style={centerStyle}>
-            <div className="pad red" ></div>
+           <Pad color="red"/>
             <div className="pad green" ></div>
             <div className="pad yellow" ></div>
             <div className="pad blue" ></div>
@@ -51,5 +61,16 @@ class App extends React.Component {
 }
 
 
+{ /* Have to change to class and add isClick function to trigger the HowlerWrapper*/}
+function Pad(props) {  
+  console.log(props.color)
+  let [isClicked] = useState(false)
+
+
+  return (
+    <div className="pad red" onClick={isClicked=true}></div>
+    
+    )
+}
 
 export default App;

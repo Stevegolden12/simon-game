@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\public",
-    "\\src"
+    "\\src",
+    "\\src\\sounds"
   ],
-  "SelectedNode": "\\src\\App.css",
+  "SelectedNode": "\\src\\index.css",
   "PreviewInSolutionExplorer": false
 }
