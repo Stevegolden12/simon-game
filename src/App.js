@@ -8,7 +8,7 @@ import './App.css'
 
 class App extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -17,35 +17,57 @@ class App extends React.Component {
       levelAnswer: []
     }
 
-    this.setLevel = this.setLevel.bind(this);
-    this.playSound = this.playSound.bind(this);
+    this.setLevel = this.setLevel.bind(this);  
+    this.startGame = this.startGame.bind(this);
+    this.createAnswer = this.createAnswer.bind(this); 
+ 
   }
 
 
 
-  setLevel(){
+  startGame() {   
+    
+   
+    console.log(this.state.levelAnswer)
+ 
+
+  }
+   
+
+ createAnswer() {
+    console.log("levelNum: " + this.state.levelNum)    
+
+   this.setState({
+      levelAnswer: Array.from({ length: this.state.levelFinish[this.state.levelNum - 1] }, () => Math.floor(Math.random() * 4))
+   });
+   
+  }
+
+
+
+  setLevel() {
+    this.setState({
+      isClicked: false
+    })
+
     if (this.state.levelNum === 4) {
       this.setState({
-        levelNum: 1,
+           levelNum: 1,
       })
     } else {
-      this.setState({
+      this.setState({       
         levelNum: this.state.levelNum + 1,
       })
     }
   }
 
-  playSound() {
-    console.log("RED BUTTON")
-
-  }
 
   render() {
     const centerStyle = { margin: 'auto' };
-
+   
 
     return (
-      <div className="App">       
+      <div className="App">
         <h1>Simon Game</h1>
         <div id="simonWrapper">
           <section className="simon" style={centerStyle}>
@@ -55,8 +77,9 @@ class App extends React.Component {
             <Pad color="blue" />
             <div className="display" id="display">
               <div id="simonName">simon</div>
-              <button id="simonLevel" onClick={this.playSound}>level {this.state.levelNum}</button>
-              <div id="startButton">start</div>
+              <button id="simonLevel" onClick={this.setLevel}>level {this.state.levelNum}</button>
+              <br />
+              <button id="startButton" onClick={this.startGame}>start</button>
             </div>
           </section>
         </div>
@@ -74,9 +97,11 @@ class Pad extends React.Component{
       isClicked: false
     }
     this.chkClick = this.chkClick.bind(this);
+
   }
 
   chkClick() {
+
     this.setState({
       isClicked: true
     })
@@ -105,7 +130,7 @@ class Pad extends React.Component{
 
     return (
       <div className={`pad ${this.props.color}`} onClick={this.chkClick}>
-        {this.state.isClicked === true && <ReactHowler src={`${colors}`} playing={true} />}
+        {this.state.isClicked === true && <ReactHowler src={`${colors}`} mute={on} />}
       </div>
     )
   }
