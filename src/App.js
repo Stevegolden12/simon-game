@@ -6,7 +6,7 @@ import redButton from './sounds/red_button.wav'
 import yellowButton from './sounds/yellow_button.wav'
 import './App.css'
 
-class App extends React.Component {
+class App extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -14,7 +14,8 @@ class App extends React.Component {
     this.state = {
       levelNum: 1,
       levelFinish: [8, 14, 20, 31],
-      levelAnswer: []
+      levelAnswer: [],
+      stopSound: 1
     }
 
     this.setLevel = this.setLevel.bind(this);  
@@ -24,12 +25,11 @@ class App extends React.Component {
   }
 
 
+  
 
-  startGame() {   
-    
+  startGame() {       
    
-    console.log(this.state.levelAnswer)
- 
+    console.log(this.state.levelAnswer) 
 
   }
    
@@ -46,9 +46,7 @@ class App extends React.Component {
 
 
   setLevel() {
-    this.setState({
-      isClicked: false
-    })
+
 
     if (this.state.levelNum === 4) {
       this.setState({
@@ -64,7 +62,7 @@ class App extends React.Component {
 
   render() {
     const centerStyle = { margin: 'auto' };
-   
+
 
     return (
       <div className="App">
@@ -76,10 +74,10 @@ class App extends React.Component {
             <Pad color="yellow" />
             <Pad color="blue" />
             <div className="display" id="display">
-              <div id="simonName">simon</div>
-              <button id="simonLevel" onClick={this.setLevel}>level {this.state.levelNum}</button>
-              <br />
-              <button id="startButton" onClick={this.startGame}>start</button>
+             <div id="simonName">simon</div>        
+            <button id="simonLevel" onClick={this.setLevel}>level {this.state.levelNum}</button>
+            <br />
+            <button id="startButton" onClick={this.startGame}>start</button>
             </div>
           </section>
         </div>
@@ -94,16 +92,18 @@ class Pad extends React.Component{
     super(props);
 
     this.state = {
-      isClicked: false
+      playing: false,
+      volume: 0.0
     }
-    this.chkClick = this.chkClick.bind(this);
-
+    this.playback = this.playback.bind(this);
+   
   }
 
-  chkClick() {
+  playback() {
 
     this.setState({
-      isClicked: true
+      playing: true,
+      volume: 1.0
     })
 
   }
@@ -128,9 +128,14 @@ class Pad extends React.Component{
         break;
     }   
 
+
+
     return (
-      <div className={`pad ${this.props.color}`} onClick={this.chkClick}>
-        {this.state.isClicked === true && <ReactHowler src={`${colors}`} mute={on} />}
+      <div className={`pad ${this.props.color}`} onClick={this.playback}>
+        <ReactHowler src={`${colors}`}
+          playing={this.state.playing}
+          volume={this.state.volume}
+        />
       </div>
     )
   }
