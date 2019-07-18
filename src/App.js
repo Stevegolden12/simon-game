@@ -68,8 +68,8 @@ class App extends React.PureComponent {
       <div className="App">
         <h1>Simon Game</h1>
         <div id="simonWrapper">
-          <section className="simon" style={centerStyle}>
-            <Pad color="red" />
+          <section className="simon" style={centerStyle}> 
+            <Pad color="red" />           
             <Pad color="green" />
             <Pad color="yellow" />
             <Pad color="blue" />
@@ -93,26 +93,33 @@ class Pad extends React.Component{
 
     this.state = {
       playing: false,
-      volume: 0.0
+      mute: false,
     }
+
     this.playback = this.playback.bind(this);
-   
-  }
+    this.mute = this.mute.bind(this);
+   }
 
   playback() {
 
     this.setState({
       playing: true,
-      volume: 1.0
+      mute: false
     })
 
+    setTimeout(this.mute, 500);
   }
 
- 
+  mute() {    
+    this.setState({
+      mute: true
+    })
+  }
 
   render() {
     let colors = redButton;
 
+   
     switch (this.props.color) {
       case 'blue':
         colors = blueButton;
@@ -128,16 +135,17 @@ class Pad extends React.Component{
         break;
     }   
 
-
+    
 
     return (
+ 
       <div className={`pad ${this.props.color}`} onClick={this.playback}>
         <ReactHowler src={`${colors}`}
           playing={this.state.playing}
-          volume={this.state.volume}
+          mute={this.state.mute}
         />
       </div>
-    )
+    ) 
   }
 }
 
