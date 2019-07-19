@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import $ from 'jquery'; 
 import ReactHowler from 'react-howler'
 import blueButton from './sounds/blue_button.wav'
 import greenButton from './sounds/green_button.wav'
@@ -26,21 +27,35 @@ class App extends React.PureComponent {
 
 
   
-
+  /* Going to remove createAnswer if completes everything on start game */
   startGame() {       
-   
-    console.log(this.state.levelAnswer) 
 
+
+    const fullAnswer = Array.from({ length: this.state.levelFinish[this.state.levelNum - 1] }, () => Math.floor(Math.random() * 4));
+    console.log(fullAnswer)
+    this.setState({
+      levelAnswer: fullAnswer
+    });
+
+    /*let colorChoice = $('.red');*/
+
+    let colorChoice = document.getElementsByClassName('red')[0]
+    console.log(colorChoice)
+    colorChoice.click()
+    colorChoice.style.background = "white"
+    setTimeout(function () { colorChoice.style.background = "red" }, 700);
+   
   }
    
-
- createAnswer() {
-    console.log("levelNum: " + this.state.levelNum)    
-
+  
+ createAnswer = ()=> {
+ 
+   const fullAnswer = Array.from({ length: this.state.levelFinish[this.state.levelNum - 1] }, () => Math.floor(Math.random() * 4));
+   console.log(fullAnswer)
    this.setState({
-      levelAnswer: Array.from({ length: this.state.levelFinish[this.state.levelNum - 1] }, () => Math.floor(Math.random() * 4))
-   });
-   
+       levelAnswer: fullAnswer
+     });
+ 
   }
 
 
