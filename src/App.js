@@ -16,7 +16,11 @@ class App extends React.PureComponent {
       levelNum: 1,
       levelFinish: [8, 14, 20, 31],
       levelAnswer: [],
-      stopSound: 1
+      stopSound: 1,
+      hoverColor: [['hsl(0,100%,35%)', 'hsl(0,100%,65%)'],
+                   ['hsl(120,100%,25%)', 'hsl(120,100%,50%)'],
+                   ['hsl(60,100%,35%)', 'hsl(60,100%,65%)'],
+                   ['hsl(240,100%,40%)','hsl(240,100%,65%)']]
     }
 
     this.setLevel = this.setLevel.bind(this);  
@@ -26,10 +30,15 @@ class App extends React.PureComponent {
   }
 
 
-  
+  /* MUST redo click function to JS click hovers
+   * Finish 
+   * 
+   * */
+
   /* Going to remove createAnswer if completes everything on start game */
   startGame() {       
-
+    /* 0:red, 1:green, 2:yellow, 3:blue, */
+    let answerColor;
 
     const fullAnswer = Array.from({ length: this.state.levelFinish[this.state.levelNum - 1] }, () => Math.floor(Math.random() * 4));
     console.log(fullAnswer)
@@ -37,13 +46,34 @@ class App extends React.PureComponent {
       levelAnswer: fullAnswer
     });
 
+    console.log(this.state.hoverColor[fullAnswer[0]][0])
+    console.log(this.state.hoverColor[fullAnswer[0]][1])
+   
+    switch (fullAnswer[0]) {
+      case 0:
+        answerColor = 'red';
+        break;
+      case 1:
+        answerColor = 'green';
+        break;
+      case 2:
+        answerColor = 'yellow';
+        break;
+      case 3:
+        answerColor = 'blue';
+        break;
+    }
+    console.log("answerColor: " + answerColor)
     /*let colorChoice = $('.red');*/
 
-    let colorChoice = document.getElementsByClassName('red')[0]
+    let colorChoice = document.getElementsByClassName(answerColor)[0]
     console.log(colorChoice)
+    let callBackColor = this.state.hoverColor[fullAnswer[0]][0];
+    console.log("callBackColor: " + callBackColor)
     colorChoice.click()
-    colorChoice.style.background = "white"
-    setTimeout(function () { colorChoice.style.background = "red" }, 700);
+    //colorChoice.style.background = `${this.state.hoverColor[fullAnswer[0]][0]}`;
+    colorChoice.style.background = 'white';
+    setTimeout(function () { colorChoice.style.background = callBackColor}, 700);
    
   }
    
