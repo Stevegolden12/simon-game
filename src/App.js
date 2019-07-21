@@ -45,10 +45,7 @@ class App extends React.PureComponent {
     this.setState({
       levelAnswer: fullAnswer
     });
-
-    console.log(this.state.hoverColor[fullAnswer[0]][0])
-    console.log(this.state.hoverColor[fullAnswer[0]][1])
-   
+       
     switch (fullAnswer[0]) {
       case 0:
         answerColor = 'red';
@@ -68,12 +65,14 @@ class App extends React.PureComponent {
 
     let colorChoice = document.getElementsByClassName(answerColor)[0]
     console.log(colorChoice)
-    let callBackColor = this.state.hoverColor[fullAnswer[0]][0];
-    console.log("callBackColor: " + callBackColor)
+
+    let highlightColor = this.state.hoverColor[fullAnswer[0]][1]
+    let normalColor = this.state.hoverColor[fullAnswer[0]][0];
+      
     colorChoice.click()
-    //colorChoice.style.background = `${this.state.hoverColor[fullAnswer[0]][0]}`;
-    colorChoice.style.background = 'white';
-    setTimeout(function () { colorChoice.style.background = callBackColor}, 700);
+    
+    colorChoice.style.background = highlightColor;
+    setTimeout(function () { colorChoice.style.background = normalColor}, 700);
    
   }
    
@@ -114,10 +113,10 @@ class App extends React.PureComponent {
         <h1>Simon Game</h1>
         <div id="simonWrapper">
           <section className="simon" style={centerStyle}> 
-            <Pad color="red" />           
-            <Pad color="green" />
-            <Pad color="yellow" />
-            <Pad color="blue" />
+            <Pad color="red" hoverColor={this.state.hoverColor}/>           
+            <Pad color="green" hoverColor={this.state.hoverColor} />
+            <Pad color="yellow" hoverColor={this.state.hoverColor} />
+            <Pad color="blue" hoverColor={this.state.hoverColor} />
             <div className="display" id="display">
              <div id="simonName">simon</div>        
             <button id="simonLevel" onClick={this.setLevel}>level {this.state.levelNum}</button>
@@ -145,14 +144,23 @@ class Pad extends React.Component{
     this.mute = this.mute.bind(this);
    }
 
-  playback() {
+  playback(arrayIndex, color) {
 
     this.setState({
       playing: true,
       mute: false
     })
-
+    
     setTimeout(this.mute, 500);
+
+    let colorChoice = document.getElementsByClassName(color)[0]
+
+    let highlightColor = this.props.hoverColor[arrayIndex][1]
+    let normalColor = this.props.hoverColor[arrayIndex][0];
+  
+    colorChoice.style.background = highlightColor;
+    setTimeout(function () { colorChoice.style.background = normalColor }, 700);
+
   }
 
   mute() {    
@@ -163,28 +171,31 @@ class Pad extends React.Component{
 
   render() {
     let colors = redButton;
-
+    let arrInd = 0;
    
     switch (this.props.color) {
       case 'blue':
         colors = blueButton;
+        arrInd = 3;
         break;
       case 'green':
         colors = greenButton;
+        arrInd = 1;
         break;
       case 'red':
         colors = redButton;
+        arrInd = 0;
         break;
       case 'yellow':
         colors = yellowButton;
+        arrInd = 2;
         break;
     }   
 
-    
 
     return (
  
-      <div className={`pad ${this.props.color}`} onClick={this.playback}>
+      <div className={`pad ${this.props.color}`} onClick={this.playback.bind(this, arrInd, this.props.color)}>
         <ReactHowler src={`${colors}`}
           playing={this.state.playing}
           mute={this.state.mute}
