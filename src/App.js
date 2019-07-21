@@ -20,13 +20,14 @@ class App extends React.PureComponent {
       hoverColor: [['hsl(0,100%,35%)', 'hsl(0,100%,65%)'],
                    ['hsl(120,100%,25%)', 'hsl(120,100%,50%)'],
                    ['hsl(60,100%,35%)', 'hsl(60,100%,65%)'],
-                   ['hsl(240,100%,40%)','hsl(240,100%,65%)']]
+                   ['hsl(240,100%,40%)', 'hsl(240,100%,65%)']],
+      buttonInput: 0,
     }
 
     this.setLevel = this.setLevel.bind(this);  
     this.startGame = this.startGame.bind(this);
     this.createAnswer = this.createAnswer.bind(this); 
- 
+    this.getButtonInput = this.getButtonInput.bind(this);
   }
 
 
@@ -73,10 +74,17 @@ class App extends React.PureComponent {
     
     colorChoice.style.background = highlightColor;
     setTimeout(function () { colorChoice.style.background = normalColor}, 700);
-   
+
+    console.log(this.state.buttonInput)
   }
    
-  
+  getButtonInput(num) {
+    this.setState({
+      buttonInput: num
+    })
+    
+  }
+
  createAnswer = ()=> {
  
    const fullAnswer = Array.from({ length: this.state.levelFinish[this.state.levelNum - 1] }, () => Math.floor(Math.random() * 4));
@@ -113,10 +121,10 @@ class App extends React.PureComponent {
         <h1>Simon Game</h1>
         <div id="simonWrapper">
           <section className="simon" style={centerStyle}> 
-            <Pad color="red" hoverColor={this.state.hoverColor}/>           
-            <Pad color="green" hoverColor={this.state.hoverColor} />
-            <Pad color="yellow" hoverColor={this.state.hoverColor} />
-            <Pad color="blue" hoverColor={this.state.hoverColor} />
+            <Pad color="red" hoverColor={this.state.hoverColor} buttonClick={this.getButtonInput}/>           
+            <Pad color="green" hoverColor={this.state.hoverColor} buttonClick={this.getButtonInput}/>
+            <Pad color="yellow" hoverColor={this.state.hoverColor} buttonClick={this.getButtonInput}/>
+            <Pad color="blue" hoverColor={this.state.hoverColor} buttonClick={this.getButtonInput}/>
             <div className="display" id="display">
              <div id="simonName">simon</div>        
             <button id="simonLevel" onClick={this.setLevel}>level {this.state.levelNum}</button>
@@ -160,6 +168,10 @@ class Pad extends React.Component{
   
     colorChoice.style.background = highlightColor;
     setTimeout(function () { colorChoice.style.background = normalColor }, 700);
+
+    console.log("arrayIndex: " + arrayIndex)
+   
+    this.props.buttonClick(arrayIndex)
 
   }
 
