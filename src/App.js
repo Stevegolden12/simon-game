@@ -75,7 +75,23 @@ class App extends React.PureComponent {
     colorChoice.style.background = highlightColor;
     setTimeout(function () { colorChoice.style.background = normalColor}, 700);
 
-    console.log(this.state.buttonInput)
+    console.log("buttonINput: " + this.state.buttonInput)
+      /*
+      if (setTimeout(() => {
+        console.log("TESTING TIMEOUT")
+        /*
+        if (this.state.buttonInput === fullAnswer[0]) {
+          console.log("YOU WIN!!")
+        } else { console.log("YOU LOSE!!") }
+        */
+      /*
+      }, 3000))
+      */
+    setTimeout(() => {
+      if (this.state.buttonInput === fullAnswer[0]) {
+        console.log("YOU WIN!!")
+      } else { console.log("YOU LOSE!!") }
+    }, 3000)
   }
    
   getButtonInput(num) {
