@@ -75,24 +75,40 @@ class App extends React.PureComponent {
     colorChoice.style.background = highlightColor;
     setTimeout(function () { colorChoice.style.background = normalColor}, 700);
 
-    console.log("buttonINput: " + this.state.buttonInput)
-      /*
-      if (setTimeout(() => {
-        console.log("TESTING TIMEOUT")
-        /*
-        if (this.state.buttonInput === fullAnswer[0]) {
-          console.log("YOU WIN!!")
-        } else { console.log("YOU LOSE!!") }
-        */
-      /*
-      }, 3000))
-      */
-    setTimeout(() => {
-      if (this.state.buttonInput === fullAnswer[0]) {
-        console.log("YOU WIN!!")
-      } else { console.log("YOU LOSE!!") }
-    }, 3000)
+    console.log("buttonInput: " + this.state.buttonInput)
+
+     for (let i = 0; i < fullAnswer.length; i++) {
+       //console.log("index: " + i)
+       (function (n) {
+         setTimeout(function () {
+           console.log(n);
+         }, 1000);
+       }(i));
+
+       let gPattern = getPattern(fullAnswer);
+
+      gPattern.next();
+
+    }
+    /*
+     * setTimeout(() => {
+            if (this.state.buttonInput === fullAnswer[i]) {
+              console.log("YOU WIN!!")
+            } else { console.log("YOU LOSE!!") }
+          }, 1000)     *
+     * 
+     * */
+
+    function* getPattern(fullAns) {
+      yield fullAns.map(x => {
+         console.log("TESTING GENERATOR: " + x)
+      })
+    }
+
+
   }
+
+  
    
   getButtonInput(num) {
     this.setState({
