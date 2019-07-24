@@ -28,6 +28,7 @@ class App extends React.PureComponent {
     this.startGame = this.startGame.bind(this);
     this.createAnswer = this.createAnswer.bind(this); 
     this.getButtonInput = this.getButtonInput.bind(this);
+
   }
 
 
@@ -37,7 +38,7 @@ class App extends React.PureComponent {
    * */
 
   /* Going to remove createAnswer if completes everything on start game */
-  startGame() {       
+  startGame = () =>{       
     /* 0:red, 1:green, 2:yellow, 3:blue, */
     let answerColor;
 
@@ -47,69 +48,63 @@ class App extends React.PureComponent {
       levelAnswer: fullAnswer
     });
        
-    switch (fullAnswer[0]) {
-      case 0:
-        answerColor = 'red';
-        break;
-      case 1:
-        answerColor = 'green';
-        break;
-      case 2:
-        answerColor = 'yellow';
-        break;
-      case 3:
-        answerColor = 'blue';
-        break;
-    }
+    
     console.log("answerColor: " + answerColor)
     /*let colorChoice = $('.red');*/
 
-    let colorChoice = document.getElementsByClassName(answerColor)[0]
-    console.log(colorChoice)
+    let colorChoice;
+    //document.getElementsByClassName(answerColor)[0]
+    let highlightColor;
+    let normalColor;
 
-    let highlightColor = this.state.hoverColor[fullAnswer[0]][1]
-    let normalColor = this.state.hoverColor[fullAnswer[0]][0];
-      
-    colorChoice.click()
-    
-    colorChoice.style.background = highlightColor;
-    setTimeout(function () { colorChoice.style.background = normalColor}, 700);
+    //highlightColor = this.state.hoverColor[fullAnswer[0]][1];
+    //normalColor = this.state.hoverColor[fullAnswer[0]][0];
 
+    fullAnswer.map((value, i) => {
+      console.log("value: " + value)
+      console.log("index: " + i)
+      switch (fullAnswer[i]) {
+        case 0:
+          answerColor = 'red';
+          break;
+        case 1:
+          answerColor = 'green';
+          break;
+        case 2:
+          answerColor = 'yellow';
+          break;
+        case 3:
+          answerColor = 'blue';
+          break;
+      }
+      console.log("color: " + answerColor)
+      colorChoice = document.getElementsByClassName(answerColor)[0]
+      highlightColor = this.state.hoverColor[fullAnswer[i]][1];
+      normalColor = this.state.hoverColor[fullAnswer[i]][0];
+
+      colorChoice.click()
+
+      colorChoice.style.background = highlightColor;
+      setTimeout(function () { colorChoice.style.background = normalColor }, 700);
+
+    })
     console.log("buttonInput: " + this.state.buttonInput)
+       
+      setInterval(() => { 
 
-     for (let i = 0; i < fullAnswer.length; i++) {
-       //console.log("index: " + i)
-       (function (n) {
-         setTimeout(function () {
-           console.log(n);
-         }, 1000);
-       }(i));
+        if (this.state.buttonInput === fullAnswer[0]) {
+   
+          console.log("YOU WIN!!")
+        } else {
+          return console.log("YOU LOSE!!")
+        }
+      }, 2000)
 
-       let gPattern = getPattern(fullAnswer);
-
-      gPattern.next();
-
-    }
-    /*
-     * setTimeout(() => {
-            if (this.state.buttonInput === fullAnswer[i]) {
-              console.log("YOU WIN!!")
-            } else { console.log("YOU LOSE!!") }
-          }, 1000)     *
-     * 
-     * */
-
-    function* getPattern(fullAns) {
-      yield fullAns.map(x => {
-         console.log("TESTING GENERATOR: " + x)
-      })
-    }
 
 
   }
 
-  
-   
+     
   getButtonInput(num) {
     this.setState({
       buttonInput: num
