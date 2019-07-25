@@ -40,7 +40,7 @@ class App extends React.PureComponent {
   /* Going to remove createAnswer if completes everything on start game */
   startGame = () =>{       
     /* 0:red, 1:green, 2:yellow, 3:blue, */
-    let answerColor;
+    let answerColor =[];
 
     const fullAnswer = Array.from({ length: this.state.levelFinish[this.state.levelNum - 1] }, () => Math.floor(Math.random() * 4));
     console.log(fullAnswer)
@@ -49,7 +49,7 @@ class App extends React.PureComponent {
     });
        
     
-    console.log("answerColor: " + answerColor)
+ 
     /*let colorChoice = $('.red');*/
 
     let colorChoice;
@@ -61,46 +61,51 @@ class App extends React.PureComponent {
     //normalColor = this.state.hoverColor[fullAnswer[0]][0];
 
     fullAnswer.map((value, i) => {
-      console.log("value: " + value)
-      console.log("index: " + i)
+      // console.log("value: " + value)
+      // console.log("index: " + i)
       switch (fullAnswer[i]) {
         case 0:
-          answerColor = 'red';
+          answerColor[i] = 'red';
           break;
         case 1:
-          answerColor = 'green';
+          answerColor[i] = 'green';
           break;
         case 2:
-          answerColor = 'yellow';
+          answerColor[i] = 'yellow';
           break;
         case 3:
-          answerColor = 'blue';
+          answerColor[i] = 'blue';
           break;
       }
-      console.log("color: " + answerColor)
-      colorChoice = document.getElementsByClassName(answerColor)[0]
-      highlightColor = this.state.hoverColor[fullAnswer[i]][1];
-      normalColor = this.state.hoverColor[fullAnswer[i]][0];
+    })
+
+      console.log("color: " + answerColor[0])
+      colorChoice = document.getElementsByClassName(answerColor[0])[0]
+      highlightColor = this.state.hoverColor[fullAnswer[0]][1];
+      normalColor = this.state.hoverColor[fullAnswer[0]][0];
 
       colorChoice.click()
 
       colorChoice.style.background = highlightColor;
-      setTimeout(function () { colorChoice.style.background = normalColor }, 700);
+      setTimeout(function () { colorChoice.style.background = normalColor }, 700)
 
-    })
-    console.log("buttonInput: " + this.state.buttonInput)
-       
-      setInterval(() => { 
+     
+    setInterval(()=> { 
+          if (this.state.buttonInput === fullAnswer[0]) {
+            colorChoice = document.getElementsByClassName(answerColor[1])[0]
+            highlightColor = this.state.hoverColor[fullAnswer[1]][1];
+            normalColor = this.state.hoverColor[fullAnswer[1]][0];
 
-        if (this.state.buttonInput === fullAnswer[0]) {
-   
-          console.log("YOU WIN!!")
-        } else {
-          return console.log("YOU LOSE!!")
-        }
-      }, 2000)
+            colorChoice.click()
 
-
+            colorChoice.style.background = highlightColor;
+            setTimeout(function () { colorChoice.style.background = normalColor }, 700)
+     
+          } else {
+            return console.log("YOU LOSE!!")
+          }
+        }, 2000)      
+  
 
   }
 
@@ -115,7 +120,7 @@ class App extends React.PureComponent {
  createAnswer = ()=> {
  
    const fullAnswer = Array.from({ length: this.state.levelFinish[this.state.levelNum - 1] }, () => Math.floor(Math.random() * 4));
-   console.log(fullAnswer)
+  // console.log(fullAnswer)
    this.setState({
        levelAnswer: fullAnswer
      });
@@ -141,7 +146,7 @@ class App extends React.PureComponent {
 
   render() {
     const centerStyle = { margin: 'auto' };
-
+  
 
     return (
       <div className="App">
