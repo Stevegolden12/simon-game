@@ -28,7 +28,7 @@ class App extends React.PureComponent {
     this.startGame = this.startGame.bind(this);
     this.createAnswer = this.createAnswer.bind(this); 
     this.getButtonInput = this.getButtonInput.bind(this);
-
+ 
   }
 
 
@@ -37,7 +37,7 @@ class App extends React.PureComponent {
    * 
    * */
 
-  /* Going to remove createAnswer if completes everything on start game */
+   /* Going to remove createAnswer if completes everything on start game */
   startGame = () =>{       
     /* 0:red, 1:green, 2:yellow, 3:blue, */
     let answerColor =[];
@@ -80,41 +80,52 @@ class App extends React.PureComponent {
     })
 
       console.log("color: " + answerColor[0])
-      colorChoice = document.getElementsByClassName(answerColor[0])[0]
-      highlightColor = this.state.hoverColor[fullAnswer[0]][1];
-      normalColor = this.state.hoverColor[fullAnswer[0]][0];
 
-      colorChoice.click()
 
-      colorChoice.style.background = highlightColor;
-      setTimeout(function () { colorChoice.style.background = normalColor }, 700)
+    /*   colorChoice = document.getElementsByClassName(answerColor[index])[0]
+        highlightColor = this.state.hoverColor[fullAnswer[index]][1];
+        normalColor = this.state.hoverColor[fullAnswer[index]][0];
 
-     
-    setInterval(()=> { 
-          if (this.state.buttonInput === fullAnswer[0]) {
-            colorChoice = document.getElementsByClassName(answerColor[1])[0]
-            highlightColor = this.state.hoverColor[fullAnswer[1]][1];
-            normalColor = this.state.hoverColor[fullAnswer[1]][0];
+        colorChoice.click()
 
-            colorChoice.click()
+        colorChoice.style.background = highlightColor;
+        setTimeout(()=> { colorChoice.style.background = normalColor }, 700)
+    
 
-            colorChoice.style.background = highlightColor;
-            setTimeout(function () { colorChoice.style.background = normalColor }, 700)
-     
-          } else {
-            return console.log("YOU LOSE!!")
-          }
-        }, 2000)      
+      if (this.state.buttonInput === fullAnswer[index]) {
+
+
+      } else {
+        return console.log("YOU LOSE!!")
+      }
+
+    */
+
+
+    //setInterval(function(){this.getTesting()},2000)
+
+    colorChoice = document.getElementsByClassName(answerColor[0])[0]
+    highlightColor = this.state.hoverColor[fullAnswer[0]][1];
+    normalColor = this.state.hoverColor[fullAnswer[0]][0];
+
+    colorChoice.click()
+
+    colorChoice.style.background = highlightColor;
+
+    setTimeout(() => {
+    
+      colorChoice.style.background = normalColor
+    }, 700);
+
   
 
   }
 
-     
+
   getButtonInput(num) {
     this.setState({
       buttonInput: num
-    })
-    
+    })    
   }
 
  createAnswer = ()=> {
@@ -161,7 +172,7 @@ class App extends React.PureComponent {
              <div id="simonName">simon</div>        
             <button id="simonLevel" onClick={this.setLevel}>level {this.state.levelNum}</button>
             <br />
-            <button id="startButton" onClick={this.startGame}>start</button>
+            <button id="startButton" onClick={() => this.startGame()}>start</button>
             </div>
           </section>
         </div>
