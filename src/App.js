@@ -79,31 +79,9 @@ class App extends React.PureComponent {
       }
     })
 
-      console.log("color: " + answerColor[0])
+    //  console.log("color: " + answerColor[0])
 
-
-    /*   colorChoice = document.getElementsByClassName(answerColor[index])[0]
-        highlightColor = this.state.hoverColor[fullAnswer[index]][1];
-        normalColor = this.state.hoverColor[fullAnswer[index]][0];
-
-        colorChoice.click()
-
-        colorChoice.style.background = highlightColor;
-        setTimeout(()=> { colorChoice.style.background = normalColor }, 700)
-    
-
-      if (this.state.buttonInput === fullAnswer[index]) {
-
-
-      } else {
-        return console.log("YOU LOSE!!")
-      }
-
-    */
-
-
-    //setInterval(function(){this.getTesting()},2000)
-
+    /*
     colorChoice = document.getElementsByClassName(answerColor[0])[0]
     highlightColor = this.state.hoverColor[fullAnswer[0]][1];
     normalColor = this.state.hoverColor[fullAnswer[0]][0];
@@ -111,13 +89,70 @@ class App extends React.PureComponent {
     colorChoice.click()
 
     colorChoice.style.background = highlightColor;
+    */
+    let hColor = this.state.hoverColor;
 
+    let ind = 0; 
+    let lastAnswer = 0;
+    let answerLocation = 1;
+    let pauseGame = false;
+    let userAnswer = []
+    let tTiming;
+
+    let cTesting = setInterval(() => {
+      if (ind < answerLocation) {
+        colorChoice = document.getElementsByClassName(answerColor[ind])[0]
+     
+        highlightColor = hColor[fullAnswer[ind]][1]
+        normalColor = hColor[fullAnswer[ind]][0]
+
+        colorChoice.click()
+
+        colorChoice.style.background = highlightColor;
+        ind++;
+      } else {
+        userAnswer = []
+        pauseGame = true
+      }
+
+      console.log("pauseGame: " + pauseGame)
+      console.log(this.state.buttonInput)
+      console.log(fullAnswer[ind])
+     tTiming = setTimeout(() => {
+      
+        userAnswer.push(this.state.buttonInput)
+        console.log(userAnswer)
+        if (this.state.buttonInput === fullAnswer[lastAnswer] && pauseGame === true) {
+          console.log("correct")
+          ind = 0;
+          lastAnswer++;
+          answerLocation++;
+          userAnswer = [];
+          pauseGame = false;
+        } else if (this.state.buttonInput !== fullAnswer[lastAnswer] && pauseGame === true) {
+          alert("END GAME")
+          console.log("false")
+          clearInterval(tTiming)
+          clearInterval(cTesting)
+        }
+      },6000 + answerLocation * 1000)
+      if(ind === fullAnswer.length) {
+        clearInterval(cTesting)
+      }
+      }, 3000 + answerLocation * 1000);
+
+    //for () { }
+
+    /*
     setTimeout(() => {
     
       colorChoice.style.background = normalColor
+      if (this.state.buttonInput === AnswerColor[0]) {
+
+      }
     }, 700);
 
-  
+    */
 
   }
 
