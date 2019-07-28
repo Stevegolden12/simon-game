@@ -21,7 +21,7 @@ class App extends React.PureComponent {
                    ['hsl(120,100%,25%)', 'hsl(120,100%,50%)'],
                    ['hsl(60,100%,35%)', 'hsl(60,100%,65%)'],
                    ['hsl(240,100%,40%)', 'hsl(240,100%,65%)']],
-      buttonInput: 0,
+      buttonInput: [],
     }
 
     this.setLevel = this.setLevel.bind(this);  
@@ -99,30 +99,41 @@ class App extends React.PureComponent {
     let userAnswer = []
     let tTiming;
 
-    let cTesting = setInterval(() => {
+    let cTesting = setInterval(() => { 
       if (ind < answerLocation) {
         colorChoice = document.getElementsByClassName(answerColor[ind])[0]
      
         highlightColor = hColor[fullAnswer[ind]][1]
         normalColor = hColor[fullAnswer[ind]][0]
 
-        colorChoice.click()
+        //colorChoice.click()
 
         colorChoice.style.background = highlightColor;
+        setTimeout(() => {
+          colorChoice.style.background = normalColor;
+        }, 700)
         ind++;
       } else {
         userAnswer = []
+        console.log("clear userAnswer")
         pauseGame = true
       }
 
-      console.log("pauseGame: " + pauseGame)
+      //console.log("pauseGame: " + pauseGame)
+      //console.log(this.state.buttonInput)
+     // console.log(fullAnswer[ind])
+
+      userAnswer.push(this.state.buttonInput)
       console.log(this.state.buttonInput)
-      console.log(fullAnswer[ind])
      tTiming = setTimeout(() => {
       
-        userAnswer.push(this.state.buttonInput)
-        console.log(userAnswer)
-        if (this.state.buttonInput === fullAnswer[lastAnswer] && pauseGame === true) {
+       
+     
+       if (this.state.buttonInput == fullAnswer[lastAnswer] && pauseGame === true) {
+         console.log(this.state.buttonInput)
+         this.setState({
+           buttonInput: []
+         })
           console.log("correct")
           ind = 0;
           lastAnswer++;
@@ -131,7 +142,10 @@ class App extends React.PureComponent {
           pauseGame = false;
         } else if (this.state.buttonInput !== fullAnswer[lastAnswer] && pauseGame === true) {
           alert("END GAME")
-          console.log("false")
+         console.log("false")
+         this.setState({
+           buttonInput: []
+         })
           clearInterval(tTiming)
           clearInterval(cTesting)
         }
@@ -158,8 +172,9 @@ class App extends React.PureComponent {
 
 
   getButtonInput(num) {
+    let newNum = num;
     this.setState({
-      buttonInput: num
+      buttonInput: [...this.state.buttonInput, newNum]
     })    
   }
 
