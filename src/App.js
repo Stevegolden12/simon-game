@@ -44,7 +44,7 @@ class App extends React.PureComponent {
  
 
     const fullAnswer = Array.from({ length: this.state.levelFinish[this.state.levelNum - 1] }, () => Math.floor(Math.random() * 4));
-    console.log(fullAnswer)
+
     this.setState({
       levelAnswer: fullAnswer
     });
@@ -117,23 +117,22 @@ class App extends React.PureComponent {
       }
 
       stringChkAnswer = JSON.stringify(chkAnswer) 
-      console.log(this.state.buttonInput)
+
       
  
  
       
       userAnswer = JSON.stringify(this.state.buttonInput)
       
-      console.log(stringChkAnswer)
-      console.log(userAnswer)
+ 
      tTiming = setTimeout(() => {      
 
        if (userAnswer === stringChkAnswer && pauseGame === true) {
-         console.log(this.state.buttonInput)
+  
          this.setState({
            buttonInput: [], 
          })
-          console.log("correct")
+   
           ind = 0;
   
          answerLocation++;
@@ -142,11 +141,10 @@ class App extends React.PureComponent {
          chkAnswer = [];
          stringChkAnswer = [];
          pauseGame = false;
-         console.log("answerSuccess: " + answerSuccess)
-         console.log("fullAnswer.length: " + fullAnswer.length)
+
          if (answerSuccess === fullAnswer.length) {
            winGame = true;
-           console.log("YOU WIN!!")
+           alert("YOU WIN!!")
            userAnswer = [];
            chkAnswer = [];
          }
@@ -177,7 +175,7 @@ class App extends React.PureComponent {
   getButtonInput(num) {
     let newNum = num;  
     if (this.state.onlyUserInput === true) {
-      console.log("Add input")
+  
       this.setState({
         buttonInput: [...this.state.buttonInput, newNum],
       })
@@ -187,7 +185,7 @@ class App extends React.PureComponent {
  createAnswer = ()=> {
  
    const fullAnswer = Array.from({ length: this.state.levelFinish[this.state.levelNum - 1] }, () => Math.floor(Math.random() * 4));
-  // console.log(fullAnswer)
+
    this.setState({
        levelAnswer: fullAnswer
      });
