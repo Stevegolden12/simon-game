@@ -77,19 +77,8 @@ class App extends React.PureComponent {
           answerColor[i] = 'blue';
           break;
       }
-    })
-
-    //  console.log("color: " + answerColor[0])
-
-    /*
-    colorChoice = document.getElementsByClassName(answerColor[0])[0]
-    highlightColor = this.state.hoverColor[fullAnswer[0]][1];
-    normalColor = this.state.hoverColor[fullAnswer[0]][0];
-
-    colorChoice.click()
-
-    colorChoice.style.background = highlightColor;
-    */
+    })  
+   
     let hColor = this.state.hoverColor;
 
     let ind = 0; 
@@ -98,6 +87,10 @@ class App extends React.PureComponent {
     let pauseGame = false;
     let userAnswer = []
     let tTiming;
+    let chkAnswer = [];
+    let stringChkAnswer = []
+    let answerSuccess = 0;
+    let winGame = false;
 
     let cTesting = setInterval(() => { 
       if (ind < answerLocation) {
@@ -106,30 +99,31 @@ class App extends React.PureComponent {
         highlightColor = hColor[fullAnswer[ind]][1]
         normalColor = hColor[fullAnswer[ind]][0]
 
-        //colorChoice.click()
-
+        //colorChoice.click() 
+        
         colorChoice.style.background = highlightColor;
         setTimeout(() => {
           colorChoice.style.background = normalColor;
-        }, 700)
+        }, 400)
         ind++;
       } else {
         userAnswer = []
-        console.log("clear userAnswer")
+        chkAnswer = [] 
         pauseGame = true
       }
 
-      //console.log("pauseGame: " + pauseGame)
-      //console.log(this.state.buttonInput)
-     // console.log(fullAnswer[ind])
 
-      userAnswer.push(this.state.buttonInput)
-      console.log(this.state.buttonInput)
-     tTiming = setTimeout(() => {
+      for (let loop = 0; loop < answerLocation; loop++) {
+        chkAnswer.push(fullAnswer[loop])
+      }
+      stringChkAnswer = JSON.stringify(chkAnswer) 
+      userAnswer = JSON.stringify(this.state.buttonInput)
       
-       
-     
-       if (this.state.buttonInput == fullAnswer[lastAnswer] && pauseGame === true) {
+      console.log(stringChkAnswer)
+      console.log(userAnswer)
+     tTiming = setTimeout(() => {      
+
+       if (userAnswer === stringChkAnswer && pauseGame === true) {
          console.log(this.state.buttonInput)
          this.setState({
            buttonInput: []
@@ -137,23 +131,39 @@ class App extends React.PureComponent {
           console.log("correct")
           ind = 0;
           lastAnswer++;
-          answerLocation++;
-          userAnswer = [];
-          pauseGame = false;
-        } else if (this.state.buttonInput !== fullAnswer[lastAnswer] && pauseGame === true) {
+         answerLocation++;
+         answerSuccess++;
+         userAnswer = [];
+         chkAnswer = [];
+         stringChkAnswer = [];
+         pauseGame = false;
+         console.log("answerSuccess: " + answerSuccess)
+         console.log("fullAnswer.length: " + fullAnswer.length)
+         if (answerSuccess === fullAnswer.length) {
+           winGame = true;
+           console.log("YOU WIN!!")
+           userAnswer = [];
+           chkAnswer = [];
+         }
+        } else if (this.state.buttonInput !== stringChkAnswer && pauseGame === true) {
           alert("END GAME")
          console.log("false")
+         chkAnswer = [];
+         stringChkAnswer = [];
+         answerSuccess = 0;
          this.setState({
            buttonInput: []
          })
           clearInterval(tTiming)
           clearInterval(cTesting)
         }
-      },6000 + answerLocation * 1000)
-      if(ind === fullAnswer.length) {
+      },6000 + answerLocation * 4000)
+      if (ind === fullAnswer.length && winGame === true) {
+        answerSuccess = 0;
+        winGame = false;
         clearInterval(cTesting)
       }
-      }, 3000 + answerLocation * 1000);
+      }, 3000 + answerLocation * 4000);
 
     //for () { }
 
@@ -261,8 +271,7 @@ class Pad extends React.Component{
   
     colorChoice.style.background = highlightColor;
     setTimeout(function () { colorChoice.style.background = normalColor }, 700);
-
-    console.log("arrayIndex: " + arrayIndex)
+    
    
     this.props.buttonClick(arrayIndex)
 
