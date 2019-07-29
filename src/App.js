@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import $ from 'jquery'; 
 import ReactHowler from 'react-howler'
 import blueButton from './sounds/blue_button.wav'
 import greenButton from './sounds/green_button.wav'
@@ -22,6 +21,7 @@ class App extends React.PureComponent {
                    ['hsl(60,100%,35%)', 'hsl(60,100%,65%)'],
                    ['hsl(240,100%,40%)', 'hsl(240,100%,65%)']],
       buttonInput: [],
+      onlyUserInput: false,
     }
 
     this.setLevel = this.setLevel.bind(this);  
@@ -41,6 +41,7 @@ class App extends React.PureComponent {
   startGame = () =>{       
     /* 0:red, 1:green, 2:yellow, 3:blue, */
     let answerColor =[];
+ 
 
     const fullAnswer = Array.from({ length: this.state.levelFinish[this.state.levelNum - 1] }, () => Math.floor(Math.random() * 4));
     console.log(fullAnswer)
@@ -48,21 +49,17 @@ class App extends React.PureComponent {
       levelAnswer: fullAnswer
     });
        
-    
- 
-    /*let colorChoice = $('.red');*/
+   
+
 
     let colorChoice;
-    //document.getElementsByClassName(answerColor)[0]
     let highlightColor;
     let normalColor;
 
-    //highlightColor = this.state.hoverColor[fullAnswer[0]][1];
-    //normalColor = this.state.hoverColor[fullAnswer[0]][0];
+
 
     fullAnswer.map((value, i) => {
-      // console.log("value: " + value)
-      // console.log("index: " + i)
+
       switch (fullAnswer[i]) {
         case 0:
           answerColor[i] = 'red';
@@ -82,7 +79,6 @@ class App extends React.PureComponent {
     let hColor = this.state.hoverColor;
 
     let ind = 0; 
-    let lastAnswer = 0;
     let answerLocation = 1;
     let pauseGame = false;
     let userAnswer = []
@@ -90,33 +86,42 @@ class App extends React.PureComponent {
     let chkAnswer = [];
     let stringChkAnswer = []
     let answerSuccess = 0;
-    let winGame = false;
+    let winGame = true;
 
     let cTesting = setInterval(() => { 
       if (ind < answerLocation) {
         colorChoice = document.getElementsByClassName(answerColor[ind])[0]
-     
+
+
         highlightColor = hColor[fullAnswer[ind]][1]
         normalColor = hColor[fullAnswer[ind]][0]
 
-        //colorChoice.click() 
-        
+        this.setState({ onlyUserInput: false })
+        colorChoice.click()
+        this.setState({ onlyUserInput: true })
+
         colorChoice.style.background = highlightColor;
         setTimeout(() => {
           colorChoice.style.background = normalColor;
-        }, 400)
+        }, 700)
         ind++;
       } else {
         userAnswer = []
         chkAnswer = [] 
-        pauseGame = true
+        pauseGame = true   
       }
 
 
       for (let loop = 0; loop < answerLocation; loop++) {
         chkAnswer.push(fullAnswer[loop])
       }
+
       stringChkAnswer = JSON.stringify(chkAnswer) 
+      console.log(this.state.buttonInput)
+      
+ 
+ 
+      
       userAnswer = JSON.stringify(this.state.buttonInput)
       
       console.log(stringChkAnswer)
@@ -126,11 +131,11 @@ class App extends React.PureComponent {
        if (userAnswer === stringChkAnswer && pauseGame === true) {
          console.log(this.state.buttonInput)
          this.setState({
-           buttonInput: []
+           buttonInput: [], 
          })
           console.log("correct")
           ind = 0;
-          lastAnswer++;
+  
          answerLocation++;
          answerSuccess++;
          userAnswer = [];
@@ -165,27 +170,18 @@ class App extends React.PureComponent {
       }
       }, 3000 + answerLocation * 4000);
 
-    //for () { }
-
-    /*
-    setTimeout(() => {
-    
-      colorChoice.style.background = normalColor
-      if (this.state.buttonInput === AnswerColor[0]) {
-
-      }
-    }, 700);
-
-    */
 
   }
 
 
   getButtonInput(num) {
-    let newNum = num;
-    this.setState({
-      buttonInput: [...this.state.buttonInput, newNum]
-    })    
+    let newNum = num;  
+    if (this.state.onlyUserInput === true) {
+      console.log("Add input")
+      this.setState({
+        buttonInput: [...this.state.buttonInput, newNum],
+      })
+    }
   }
 
  createAnswer = ()=> {
