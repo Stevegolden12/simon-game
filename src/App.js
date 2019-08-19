@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactHowler from 'react-howler'
 import blueButton from './sounds/blue_button.wav'
 import greenButton from './sounds/green_button.wav'
@@ -72,6 +72,9 @@ class App extends React.PureComponent {
           break;
         case 3:
           answerColor[i] = 'blue';
+          break;
+        default:
+          console.log("fullAnswer is not working")
           break;
       }
     })  
@@ -297,6 +300,9 @@ class Pad extends React.Component{
       case 'yellow':
         colors = yellowButton;
         arrInd = 2;
+        break;
+      default:
+        console.log("this.props.color is not working")
         break;
     }   
 
