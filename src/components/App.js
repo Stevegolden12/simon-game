@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactHowler from 'react-howler'
-import blueButton from './sounds/blue_button.wav'
-import greenButton from './sounds/green_button.wav'
-import redButton from './sounds/red_button.wav'
-import yellowButton from './sounds/yellow_button.wav'
-import './App.css'
+import blueButton from '../sounds/blue_button.wav'
+import greenButton from '../sounds/green_button.wav'
+import redButton from '../sounds/red_button.wav'
+import yellowButton from '../sounds/yellow_button.wav'
+import '../App.css'
+
+import Pad from './Pad'
 
 class App extends React.PureComponent {
 
@@ -239,7 +241,7 @@ class App extends React.PureComponent {
 }
 
 
-class Pad extends React.Component{
+class Pad1 extends React.Component{
   constructor(props) {
     super(props);
 
