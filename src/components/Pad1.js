@@ -1,12 +1,4 @@
-import React from 'react';
-import ReactHowler from 'react-howler'
-import blueButton from '../sounds/blue_button.wav'
-import greenButton from '../sounds/green_button.wav'
-import redButton from '../sounds/red_button.wav'
-import yellowButton from '../sounds/yellow_button.wav';
-import PropTypes from 'prop-types';
-
-class Pad extends React.Component {
+class Pad1 extends React.Component {
   constructor(props) {
     super(props);
 
@@ -86,9 +78,3 @@ class Pad extends React.Component {
   }
 }
 
-Pad.propTypes = {
-  playing: PropTypes.bool,
-  mute: PropTypes.bool,
- }
-
-export default Pad
