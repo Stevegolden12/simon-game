@@ -3,8 +3,9 @@
     "",
     "\\public",
     "\\src",
+    "\\src\\components",
     "\\src\\sounds"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\src\\sounds",
   "PreviewInSolutionExplorer": false
 }
